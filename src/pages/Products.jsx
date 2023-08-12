@@ -15,7 +15,7 @@ export default function Products() {
           <option value="Toys">Toys</option>
         </select>
         <label htmlFor="lowStock">
-          <input type="checkbox" name="lowStock" id="lowStock" onClick={(e)=>{dispatch({type:"STOCK", payload:e.target.checked})}} checked={filters.stock}/>
+          <input type="checkbox" name="lowStock" id="lowStock" onChange={(e)=>{dispatch({type:"STOCK", payload:e.target.checked})}} checked={filters.stock}/>
         {" "}  Low Stock Items
         </label>
         <select name="sorting" id=""  onChange={(e)=>{dispatch({type:"SORT", payload:e.target.value})}} value={filters.sort} >

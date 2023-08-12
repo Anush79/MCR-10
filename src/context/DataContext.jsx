@@ -13,7 +13,7 @@ export const DataContext = createContext();
 const initialValue = {
   department: "",
   stock: false,
-  sort: "",
+  sort: "name",
 };
 
 const reducerFunction = (state, action) => {
@@ -45,17 +45,23 @@ export function DataProvider({ children }) {
 
   const filteredData =
     filters.department.length > 0
-      ? inventoryData.filter((item) => item.department === filters.department)
-      : inventoryData;
+      ? iData.filter((item) => item.department === filters.department)
+      : iData;
 
   const stockData = filters.stock
     ? filteredData.filter((item) => item.stock <= 10)
     : filteredData;
 
+  // const sortedData =
+  //   filters.sort.length > 0
+  //     ? stockData.sort((a, b) => a[filters.sort] - b[filters.sort])
+  //     : stockData;
   const sortedData =
-    filters.sort.length > 0
-      ? stockData.sort((a, b) => a[filters.sort] - b[filters.sort])
-      : stockData;
+  filters.sort.length > 0
+    ? stockData.sort((a, b) =>{
+      console.log( a[filters.sort],b[filters.sort] ,"filt")
+      return a[filters.sort] - b[filters.sort]})
+    : stockData;
 
   useEffect(() => {
     localStorage.setItem("filters",  JSON.stringify(filters));
