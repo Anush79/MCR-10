@@ -52,16 +52,14 @@ console.log(uuid())
     ? filteredData.filter((item) => item.stock <= 10)
     : filteredData;
 
-  // const sortedData =
-  //   filters.sort.length > 0
-  //     ? stockData.sort((a, b) => a[filters.sort] - b[filters.sort])
-  //     : stockData;
   const sortedData =
-  filters.sort.length > 0
-    ? stockData.sort((a, b) =>{
-      console.log( a[filters.sort],b[filters.sort] ,"filt")
-      return a[filters.sort] - b[filters.sort]})
-    : stockData;
+    filters.sort.length > 0
+      ? stockData.sort((a, b) =>{   
+         if (filters.sort === "name") 
+        return a.name.localeCompare(b.name) 
+        else return a[filters.sort] - b[filters.sort]})
+      : stockData;
+
 
   useEffect(() => {
     localStorage.setItem("filters",  JSON.stringify(filters));
