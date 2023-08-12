@@ -11,7 +11,7 @@ import Management from './pages/Management';
 import Header from './components/Header';
 function App() {
   return (
-    <div className="App flex flex-row max-h-screen">
+    <div className="App flex flex-row overflow-y-hidden max-h-screen">
 
       <header>
         <Header></Header>

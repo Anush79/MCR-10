@@ -11,13 +11,13 @@ export default function ProductCard({item}){
       <div>
           <img src={imageUrl} alt="" />
       </div>
-     <div>
+     <div className="cursor-pointer">
       <NavLink to={`/product/${id}`}>
       {name}
       </NavLink>
     </div>
      <div>{description}</div>
-     <div>{price}</div>
+     <div>$ {price}</div>
      <div>{stock}</div>
      <div>{supplier}</div>
 

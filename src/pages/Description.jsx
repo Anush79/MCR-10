@@ -3,11 +3,12 @@ import { useData } from "../context/DataContext";
 export default function ProductDescription() {
   const { prodId } = useParams();
   const { iData } = useData();
-  const product = iData.find((item) => item.id === +prodId);
+  const product = iData.find((item) => item.id == prodId);
+  console.log(product)
   const { id, name, imageUrl, description, price, stock,sku, supplier, department } = product;
 
   return (
-    <div className="h-screen">
+    <div className="h-[90vh]">
       <h1 className="text-4xl font-bold "> {name}</h1>
       <div className=" h-full grid grid-cols-2 gap-4 items-center justify-center">
       <div>

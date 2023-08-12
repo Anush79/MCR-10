@@ -39,10 +39,10 @@ export function DataProvider({ children }) {
 
   const handleAddNewProduct = (newProduct) => {
     console.log(newProduct);
-    setIData([ {id:uuid(),...newProduct}, ...iData])
+    setIData([ {...newProduct,id:uuid()}, ...iData])
     toast.success(`${newProduct.name} Added to Inventory`);
   };
-
+console.log(uuid())
   const filteredData =
     filters.department.length > 0
       ? iData.filter((item) => item.department === filters.department)
