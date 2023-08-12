@@ -8,7 +8,7 @@ export default function Departments (){
   }
   return (
     <div>
-      <h1>Departments Page</h1>
+      <h1 className="font-bold text-3xl">Departments Page</h1>
       <div className="flex gap-6 justify-center p-4 font-bold text-xl">
         <div className="dash-card cursor-pointer" onClick={onClickHandler}>Kitchen</div>
         <div className="dash-card cursor-pointer" onClick={onClickHandler}>Clothing</div>

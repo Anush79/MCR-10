@@ -16,11 +16,16 @@
 .active{
   color:antiquewhite;
 }
-.pCard{
+.pCard, .productsHeading{
   width: 100%;
   display: grid;
   text-align: left;
   grid-template-columns: 120px 200px 500px 70px 70px auto;
+}
+.productsHeading{
+  font-weight: bold;
+  padding:0.5rem;
+  background-color: rgb(225, 228, 228);
 }
 .pCard div{
 padding:0.5rem;  
