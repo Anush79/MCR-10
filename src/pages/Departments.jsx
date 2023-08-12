@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom"
+import { useData } from "../context/DataContext";
 
 export default function Departments (){
   const navigate=  useNavigate()
-
+  const {dispatch} = useData()
   const onClickHandler = (e)=>{
  navigate('/products');
+ dispatch({type:"DEPARTMENT", payload:e.target.textContent})
   }
   return (
     <div>

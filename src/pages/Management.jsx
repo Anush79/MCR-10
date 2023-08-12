@@ -16,14 +16,30 @@ export default function Management() {
     imageUrl: 'https://picsum.photos/id/1/500/500',
   })
 
+  /**
+   * 
+   *{
+    id: "",
+    department: '',
+    name: "",
+    description:
+      '',
+    price: 0,
+    stock: 0,
+    sku: '',
+    supplier: '',
+    delivered: 0,
+    imageUrl: 'https://picsum.photos/id/1/500/500',
+  }
+   */
   const handleChange = (e) => {
     const { value, id } = e.target;
     setProductData({ ...productData, [id]: value })
   }
   return (
-    <div>
+    <div className="flex flex-col   ">
       <h1>Management Page</h1>
-      <form className="flex flex-col items-start" onSubmit={(e) => { e.preventDefault(); handleAddNewProduct(productData) }}>
+      <form className="flex flex-col pl-6 gap-2 items-start" onSubmit={(e) => { e.preventDefault(); handleAddNewProduct(productData) }}>
         <label for="department">Department:</label>
         <select id="department" name="department" required onChange={handleChange} >
           <option value="">Select Department</option>
@@ -61,7 +77,7 @@ export default function Management() {
         <label for="itemImage">Item Image URL:</label>
         <input type="url" id="imageUrl" name="itemImage" required onChange={handleChange} />
 
-        <button>Add New Product</button>
+        <button className="bg-blue-500 text-white">Add New Product</button>
       </form>
     </div>
   );

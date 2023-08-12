@@ -8,17 +8,17 @@ export default function Products() {
     <div className="">
       <h1 className="text-3xl font-bold ">Products Page</h1>
       <div className="filters flex items-center p-2 justify-around">
-        <select name="department" onClick={(e)=>{dispatch({type:"DEPARTMENT", payload:e.target.value})}} id="">
+        <select name="department" onChange={(e)=>{dispatch({type:"DEPARTMENT", payload:e.target.value})}} value={filters.department} id="">
           <option value="">Select Department</option>
           <option value="Kitchen">Kitchen</option>
           <option value="Clothing">Clothing</option>
           <option value="Toys">Toys</option>
         </select>
         <label htmlFor="lowStock">
-          <input type="checkbox" name="lowStock" id="lowStock" onClick={(e)=>{dispatch({type:"STOCK", payload:e.target.checked})}} />
+          <input type="checkbox" name="lowStock" id="lowStock" onClick={(e)=>{dispatch({type:"STOCK", payload:e.target.checked})}} checked={filters.stock}/>
         {" "}  Low Stock Items
         </label>
-        <select name="sorting" id=""  onClick={(e)=>{dispatch({type:"SORT", payload:e.target.value})}} >
+        <select name="sorting" id=""  onChange={(e)=>{dispatch({type:"SORT", payload:e.target.value})}} value={filters.sort} >
           <option value="name">Name</option>
           <option value="price">Price</option>
           <option value="stock">Stock</option>
@@ -38,9 +38,10 @@ export default function Products() {
         <div>Supplier</div>
       </div>
       <div className="container h-screen overflow-scroll w-full">
-        {sortedData.map((item) => (
+        {sortedData.length >0?
+        sortedData.map((item) => (
           <ProductCard item={item} />
-        ))}
+        )) : <p>No Products Available </p>}
       </div>
     </div>
   );

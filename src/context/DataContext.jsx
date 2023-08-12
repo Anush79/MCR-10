@@ -1,52 +1,81 @@
-import { createContext, useContext, useReducer, useState } from 'react';
-import {v4 as uuid} from "uuid";
-import { inventoryData } from '../data/data';
-import {toast} from 'react-toastify'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
+import { v4 as uuid } from "uuid";
+import { inventoryData } from "../data/data";
+import { toast } from "react-toastify";
 export const DataContext = createContext();
 
 const initialValue = {
-  department:"",
-  stock:false,
-  sort:""
-  }
+  department: "",
+  stock: false,
+  sort: "",
+};
 
-const reducerFunction= (state, action)=>{
-   const {type, payload} = action;
-   switch (type) {
+const reducerFunction = (state, action) => {
+  const { type, payload } = action;
+  switch (type) {
     case "DEPARTMENT":
-      return {...state, department:payload}
+      return { ...state, department: payload };
     case "STOCK":
-        return {...state, stock:payload}
+      return { ...state, stock: payload };
     case "SORT":
-      return {...state, sort:payload}
+      return { ...state, sort: payload };
     default:
       return state;
-   }
-}
-
-
-export function DataProvider({children}){
-  const [filters, dispatch ] = useReducer(reducerFunction, initialValue)
-  const [iData, setIData] = useState(inventoryData)
-  
-  const handleAddNewProduct = (newProduct)=>{
-    console.log(newProduct)
-     toast.success(`${newProduct.name} Added to Inventory`)
   }
+};
 
-  const filteredData = filters.department.length >0?
-  inventoryData.filter(item=>item.department === filters.department)
-  :inventoryData;
+export function DataProvider({ children }) {
+  const [filters, dispatch] = useReducer(
+    reducerFunction,
+    JSON.parse(localStorage.getItem("filters")) || initialValue
+  );
+  const [iData, setIData] = useState(JSON.parse(localStorage.getItem("inventoryData")) || inventoryData);
 
-  const stockData  = filters.stock ? filteredData.filter(item=> item.stock <= 10): filteredData
-  
-  const sortedData = filters.sort.length > 0? stockData.sort((a, b)=> a[filters.sort]-b[filters.sort]) : stockData
-  
+  const handleAddNewProduct = (newProduct) => {
+    console.log(newProduct);
+    setIData([ {id:uuid(),...newProduct}, ...iData])
+    toast.success(`${newProduct.name} Added to Inventory`);
+  };
 
+  const filteredData =
+    filters.department.length > 0
+      ? inventoryData.filter((item) => item.department === filters.department)
+      : inventoryData;
 
-  return <DataContext.Provider value= {{iData,inventoryData,filters, dispatch, sortedData,handleAddNewProduct }}>
-    {children}
-  </DataContext.Provider>
+  const stockData = filters.stock
+    ? filteredData.filter((item) => item.stock <= 10)
+    : filteredData;
+
+  const sortedData =
+    filters.sort.length > 0
+      ? stockData.sort((a, b) => a[filters.sort] - b[filters.sort])
+      : stockData;
+
+  useEffect(() => {
+    localStorage.setItem("filters",  JSON.stringify(filters));
+    localStorage.setItem("inventoryData",  JSON.stringify(iData));
+  }, [filters, iData]);
+
+  return (
+    <DataContext.Provider
+      value={{
+        iData,
+        inventoryData,
+        filters,
+        dispatch,
+        sortedData,
+        handleAddNewProduct,
+      }}
+    >
+      {children}
+    </DataContext.Provider>
+  );
 }
 
-export const useData =()=> useContext(DataContext);
+export const useData = () => useContext(DataContext);
