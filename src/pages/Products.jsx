@@ -3,22 +3,22 @@ import ProductCard from "../components/ProductCard";
 import { useData } from "../context/DataContext";
 
 export default function Products() {
-  const { iData } = useData();
+  const { iData,filters, dispatch, sortedData  } = useData();
   return (
     <div className="">
       <h1 className="text-3xl font-bold ">Products Page</h1>
       <div className="filters flex items-center p-2 justify-around">
-        <select name="department" id="">
+        <select name="department" onClick={(e)=>{dispatch({type:"DEPARTMENT", payload:e.target.value})}} id="">
           <option value="">Select Department</option>
           <option value="Kitchen">Kitchen</option>
           <option value="Clothing">Clothing</option>
           <option value="Toys">Toys</option>
         </select>
         <label htmlFor="lowStock">
-          <input type="checkbox" name="lowStock" id="lowStock" />
+          <input type="checkbox" name="lowStock" id="lowStock" onClick={(e)=>{dispatch({type:"STOCK", payload:e.target.checked})}} />
         {" "}  Low Stock Items
         </label>
-        <select name="sorting" id="">
+        <select name="sorting" id=""  onClick={(e)=>{dispatch({type:"SORT", payload:e.target.value})}} >
           <option value="name">Name</option>
           <option value="price">Price</option>
           <option value="stock">Stock</option>
@@ -38,7 +38,7 @@ export default function Products() {
         <div>Supplier</div>
       </div>
       <div className="container h-screen overflow-scroll w-full">
-        {iData.map((item) => (
+        {sortedData.map((item) => (
           <ProductCard item={item} />
         ))}
       </div>
