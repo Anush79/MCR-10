@@ -25,3 +25,18 @@
 .pCard div{
 padding:0.5rem;  
 }
+.dash-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 170px;
+  width: 170px;
+  background-color: rgb(229, 229, 229);
+  border-radius: 24px;
+}
+.dash-card span{
+  font-size: x-large;
+  font-weight: bold;
+
+}
